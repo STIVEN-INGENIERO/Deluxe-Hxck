@@ -1,79 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Página de Contacto</title>
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mi Página de Contacto</title>
+
+<style>
+
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        background: #000;
     }
 
     .container {
-      text-align: center;
-      padding: 20px;
+        text-align: center;
+        padding: 20px;
+        background: transparent;
+        border-radius: 15px;
+        z-index: 5;
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
+        font-size: 2rem;
+        margin-top: 20px;
+        color: white;
+    }
+
+    /* TEXTO NORMAL SIN ANIMACIÓN */
+
+    .hack-text {
+        font-size: 1.5rem;
+        margin-top: 10px;
+        color: red;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        display: inline-block;
+        white-space: nowrap;
+        text-shadow: 0 0 6px red;
     }
 
     .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
     }
 
     .btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 130px;
-      padding: 15px;
-      border-radius: 15px;
-      background: #1a1a1a;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      transition: 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 130px;
+        padding: 15px;
+        border-radius: 15px;
+        background: #1a1a1a;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        transition: 0.2s;
     }
 
     .btn:hover {
-      background: #333;
-      transform: scale(1.05);
+        background: #333;
+        transform: scale(1.05);
     }
 
     .btn img {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 10px;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Contactos</h1>
-    <div class="buttons">
-      <a class="btn" href="https://whatsapp.com/channel/0029Vb6v6Bn9mrGWOjLp5F03" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-        WhatsApp
-      </a>
 
-      <a class="btn" href="https://discord.gg/SNXtMxdYqT" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/en/9/98/Discord_logo.svg" alt="Discord" />
-        Discord
-      </a>
+    #particle-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.9;
+        pointer-events: none;
+        transition: transform 0.1s linear;
+        animation: move 10s infinite ease-in-out alternate;
+    }
+
+    @keyframes move {
+        0% { transform: translate(0,0); }
+        100% { transform: translate(20px, -30px); }
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <img src="https://files.catbox.moe/74glft.png" width="260" style="border-radius:15px;">
+
+    <h1>Comunícate ya!</h1>
+
+    <!-- TEXTO FIJO SIN ANIMACIÓN -->
+    <div class="hack-text">Melhor proveedor de hacks</div>
+
+    <div class="buttons">
+        <a class="btn" href="https://whatsapp.com/channel/0029Vb6v6Bn9mrGWOjLp5F03" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+            WhatsApp
+        </a>
+
+        <a class="btn" href="https://discord.gg/SNXtMxdYqT" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/en/9/98/Discord_logo.svg" alt="Discord" />
+            Discord
+        </a>
     </div>
-  </div>
+
+</div>
+
+<div id="particle-bg"></div>
+
+<script>
+
+    const container = document.getElementById("particle-bg");
+    const totalParticles = 550;
+
+    const particles = [];
+
+    for (let i = 0; i < totalParticles; i++) {
+        let p = document.createElement("div");
+        p.classList.add("particle");
+
+        let size = Math.random() * 2 + 0.8;
+        p.style.width = size + "px";
+        p.style.height = size + "px";
+
+        p.style.left = Math.random() * 100 + "%";
+        p.style.top = Math.random() * 100 + "%";
+
+        p.style.background = Math.random() < 0.5 ? "white" : "red";
+
+        container.appendChild(p);
+
+        particles.push({
+            el: p,
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4
+        });
+    }
+
+    document.addEventListener("mousemove", (e) => {
+        particles.forEach(p => {
+            let dx = p.x - e.clientX;
+            let dy = p.y - e.clientY;
+            let dist = Math.sqrt(dx*dx + dy*dy);
+
+            if (dist < 80) { 
+                p.vx += dx / 60;
+                p.vy += dy / 60;
+            }
+        });
+    });
+
+    function animateParticles() {
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            p.vx *= 0.98;
+            p.vy *= 0.98;
+
+            if (p.x < 0) p.x = window.innerWidth;
+            if (p.x > window.innerWidth) p.x = 0;
+            if (p.y < 0) p.y = window.innerHeight;
+            if (p.y > window.innerHeight) p.y = 0;
+
+            p.el.style.left = p.x + "px";
+            p.el.style.top = p.y + "px";
+        });
+
+        requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+
+</script>
+
 </body>
 </html>
